@@ -6,11 +6,12 @@ import Pages.Busqueda;
 import Pages.ResultadoBusqueda;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 public class TestBusqueda {
-    String driverPath = "C:\\Users\\Luis\\Documents\\Selenium\\chromedriver\\chromedriver.exe";
+    String driverPath = "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe";
 
     WebDriver driver;
 
@@ -22,9 +23,9 @@ public class TestBusqueda {
 
     public void setup(){
 
-        System.setProperty("webdriver.chrome.driver", driverPath);
+        System.setProperty("webdriver.gecko.driver", driverPath);
 
-        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
@@ -51,6 +52,6 @@ public class TestBusqueda {
 
         //Verify home page
 
-        Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().toLowerCase().contains("Resultados para:"));
+        Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Resultados para:"));
     }
 }
