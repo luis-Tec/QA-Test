@@ -6,15 +6,24 @@ import org.openqa.selenium.Keys;
 public class Principal {
     WebDriver driver;
     //boton  clubes
-    By botonClub = By.xpath("//*[@id=\"clubLocationHeader\"]/img");
+    By botonClub = By.xpath("//*[@id=\"clubLocationHeader\"]");
+
     //boton para seleccionar algun club
-    By botonClubes = By.xpath("/html/body/form/div/div/div/div/div[2]/div/div[2]/div/div[1]/div[1]/div[3]/div[1]/button");
+    By botonClubes = By.xpath("//*[@id=\"club-location-picker-cont\"]/div[1]");
+
+    //click nuevo club
+    By boton = By.xpath("//*[@id=\"select-club\"]");
 
     //Boton categorias
     By botonCategorias = By.xpath("//*[@id=\"categories-dropdown\"]/div/div");
 
     //boton moda y accesorios
     By botonModa = By.name("Modayaccesorios");
+
+
+    public void setCampus(String strCampus){
+        //river.findElement().getText();
+    }
 
     public Principal(WebDriver driver){
 
@@ -27,7 +36,8 @@ public class Principal {
     }
 
     public void clickBotonClubes(){
-        driver.findElement(botonClubes).click();
+        driver.findElement(botonClubes);
+        driver.findElement(boton).click();
     }
 
     public void clickBotonCategorias(){
