@@ -1,4 +1,5 @@
 package Pages;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -9,9 +10,13 @@ import java.util.List;
 public class Principal {
     WebDriver driver;
 
+    //Buscador
+    By barraBusqueda = By.name("_sq");
+
+
     //boton  clubes
     By botonClub = By.xpath("//*[@id=\"clubLocationHeader\"]");
-
+    By botonCerrarMenuClubes = By.xpath("/html/body/form/div/div/div/div/div/div/div[1]/button");
     By dialogMensajeClub = By.xpath("//*[@id=\"selectClubAlert\"]");
     By botonDialogMensajeClub = By.xpath("/html/body/form/div/div/div/div/div[1]/div/div[2]/div/div/a[1]");
 
@@ -28,35 +33,57 @@ public class Principal {
     By botonModa = By.xpath("//*[@id=\"Modayaccesorios\"]");
 
 
-    public Principal(WebDriver driver){
+    public Principal(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void clickBotonClub(){
+    public void clickBotonClub() {
         driver.findElement(botonClub).click();
-        if(driver.findElements(dialogMensajeClub).size() != 0){
+        if (driver.findElements(dialogMensajeClub).size() != 0) {
             driver.findElement(botonDialogMensajeClub).click();
         }
     }
 
-    public void clickBotonClubes(String campus){
+    public void clickBotonClubes(String campus) {
         List<WebElement> hijosTextCampus = driver.findElement(textCampus).findElements(elements);
-        for ( WebElement i : hijosTextCampus ) {
+        for (WebElement i : hijosTextCampus) {
             String x = i.findElement(By.id("club-description")).getText();
-            System.out.println(x+" "+campus);
-            if(campus.equals(x)){
-                i.findElement(By.id("select-club")).click();
+            System.out.println(x + " " + campus);
+            if (campus.equals(x)) {
+                if (i.findElements(By.id("club-select")).size() != 0) {
+                    driver.findElement(botonCerrarMenuClubes).click();
+                } else {
+                    i.findElement(By.id("select-club")).click();
+                }
                 break;
             }
         }
     }
 
-    public void clickBotonCategorias(){
+    public void clickBotonCategorias() {
+
         driver.findElement(botonCategorias).click();
     }
 
-    public void clickBotonModa(){
+    public void clickBotonModa() {
         driver.findElement(botonCategorias);
         driver.findElement(botonModa).click();
     }
+
+    public void setProducto(String strProducto) {
+        driver.findElement(barraBusqueda).sendKeys(strProducto);
+    }
+
+    public void enterBarraBusqueda() {
+        driver.findElement(barraBusqueda).sendKeys(Keys.RETURN);
+    }
+
+    public void buscarProducto(String strProducto) {
+        //Ingresa el producto
+        this.setProducto(strProducto);
+
+        //Busca el producto al presionar "ENTER"
+        this.enterBarraBusqueda();
+    }
+
 }
