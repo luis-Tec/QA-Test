@@ -14,8 +14,6 @@ public class Carrito {
         this.driver = driver;
 
     }
-
-
     public String getArticulosCarrito(){
 
         return    driver.findElement(listaResultado).getText();

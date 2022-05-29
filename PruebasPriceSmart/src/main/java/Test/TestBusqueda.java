@@ -2,7 +2,6 @@ package Test;
 
 import java.util.concurrent.TimeUnit;
 
-import Pages.Busqueda;
 import Pages.Paises;
 import Pages.Principal;
 import Pages.ResultadoBusqueda;
@@ -25,8 +24,6 @@ public class TestBusqueda {
     String driverPath = "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe";
 
     WebDriver driver;
-
-    Busqueda objBusqueda;
 
     ResultadoBusqueda objResultadoBusqueda;
 
@@ -51,21 +48,48 @@ public class TestBusqueda {
         driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
-    /*
-    @Test(dataProvider = "dp")
-    public void test_Home_Page_Appear_Correct(String pais, String url) {
-        objBusqueda = new Busqueda(driver);
-        driver.get(url);
-        objBusqueda.buscarProducto("frijol");
+
+    @Test(dataProvider = "dpBuscador")
+    public void test_Buscar_Producto(String pais, String campus, String idioma, String producto) throws InterruptedException {
+        //Cargar la pagina de seleccion de paises
+        driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
+
+        //Crear objetos
+        objPaises = new Paises(driver);
+        objPrincipal = new Principal(driver);
+
+        //Seleccionar idioma
+        objPaises.clickBotonIdioma(idioma);
+
+        //Click al pais correspondiente
+        objPaises.clickBotonPais(pais);
+        Thread.sleep(5000);
+
+        // click en club
+        objPrincipal.clickBotonClub();
+        Thread.sleep(3000);
+
+        //click en un club
+        objPrincipal.clickBotonClubes(campus);
+
+        //Buscar producto
+        objPrincipal.buscarProducto(producto);
+
         objResultadoBusqueda = new ResultadoBusqueda(driver);
-        Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Resultados para:"));
+
+        if (idioma.equals("es")) {
+            Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Resultados para:"));
+        } else if (idioma.equals("en")) {
+            Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Results for:"));
+        }
     }
 
-     */
 
+/*
     @Test(dataProvider = "dpCarrito")
     public void test_Agregar_Carrito(String pais, String campus, String idioma) throws InterruptedException {
         //Cargar la pagina de seleccion de paises
+        objBusqueda = new Busqueda(driver);
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
 
         //Crear objetos
@@ -80,20 +104,23 @@ public class TestBusqueda {
 
         //Click al pais correspondiente
         objPaises.clickBotonPais(pais);
-        Thread.sleep(10000);
+        Thread.sleep(5000);
 
         // click en club
         objPrincipal.clickBotonClub();
+        Thread.sleep(3000);
 
         //click en un club
         objPrincipal.clickBotonClubes(campus);
 
         //click en categorias
         objPrincipal.clickBotonCategorias();
+        Thread.sleep(3000);
 
         //click en moda y accesorios
         objPrincipal.clickBotonModa();
 
+        Thread.sleep(5000);
         //click en el primer articulo
         objModa.clickBotonPrimerObjeto();
 
@@ -103,7 +130,7 @@ public class TestBusqueda {
         //Verificar que se agrego al carrito
         Assert.assertTrue(objCarrito.getArticulosCarrito().contains("PriceSmart | Carrito de compras"));
     }
-
+/*
     /*
     @DataProvider(name="dp")
     public static Object[][] readJson() throws Exception {
@@ -133,15 +160,16 @@ public class TestBusqueda {
     public static Object[][] dataProviderCarrito() {
         return new Object[][]
                 {
-                        //{"Costa Rica", "Zapote", "es",
-                        //{"Costa Rica", "Escazú", "es"},
-                        //{"Costa Rica", "Heredia", "es"},
-                        //{"Costa Rica", "Llorente", "es"},
-                        //{"Costa Rica", "Alajuela", "es"},
-                        //{"Costa Rica", "Tres Ríos", "es"},
-                        //{"Costa Rica", "Santa Ana", "es"},
+                        {"Costa Rica", "Zapote", "es"},
+                        {"Costa Rica", "Escazú", "es"},
+                        {"Costa Rica", "Heredia", "es"},
+                        {"Costa Rica", "Llorente", "es"},
+                        {"Costa Rica", "Alajuela", "es"},
+                        {"Costa Rica", "Tres Ríos", "es"},
+                        {"Costa Rica", "Santa Ana", "es"},
                         {"El Salvador", "Santa Elena", "en"},
-                        {"El Salvador", "Los Héroes", "es"},
+                        {"El Salvador", "Los Héroes", "es"}
+
                 };
     }
 
@@ -149,15 +177,15 @@ public class TestBusqueda {
     public static Object[][] dataProviderBuscador() {
         return new Object[][]
                 {
-                        //{"Costa Rica", "Zapote", "es",
-                        //{"Costa Rica", "Escazú", "es"},
-                        //{"Costa Rica", "Heredia", "es"},
-                        //{"Costa Rica", "Llorente", "es"},
-                        //{"Costa Rica", "Alajuela", "es"},
-                        //{"Costa Rica", "Tres Ríos", "es"},
-                        //{"Costa Rica", "Santa Ana", "es"},
-                        {"El Salvador", "Santa Elena", "en"},
-                        {"El Salvador", "Los Héroes", "es"},
+                        {"Costa Rica", "Zapote", "es", "frijol"},
+                        {"Costa Rica", "Escazú", "en", "beans"},
+                        {"Costa Rica", "Heredia", "es", "banano"},
+                        {"Costa Rica", "Llorente", "es", "carne"},
+                        {"Costa Rica", "Alajuela", "es", "pollo"},
+                        {"Costa Rica", "Tres Ríos", "es", "tv"},
+                        {"Costa Rica", "Santa Ana", "es", "foco"},
+                        {"El Salvador", "Santa Elena", "en", "atun"},
+                        {"El Salvador", "Los Héroes", "es", "tomate"},
                 };
     }
 

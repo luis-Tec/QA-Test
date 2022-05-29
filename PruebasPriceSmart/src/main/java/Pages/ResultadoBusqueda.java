@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 public class ResultadoBusqueda {
     WebDriver driver;
 
-    By listaResultados = By.xpath("//*[@id=\"product-search\"]/span[1]");
+    By listaResultados = By.xpath("//*[@id=\"product-search\"]");
 
 
 
