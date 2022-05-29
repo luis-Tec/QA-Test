@@ -21,7 +21,6 @@ public class Principal {
     By botonDialogMensajeClub = By.xpath("/html/body/form/div/div/div/div/div[1]/div/div[2]/div/div/a[1]");
 
 
-
     //Texto del campus
     By textCampus = By.xpath("//*[@id=\"club-location-picker-cont\"]");
 
@@ -34,9 +33,11 @@ public class Principal {
     //boton moda y accesorios
     By botonModa = By.xpath("//*[@id=\"Modayaccesorios\"]");
 
-    By botonMembrecia = By.xpath("//*[@id=\"dropdownMenuButton\"]");
 
-    By botonComprarMembrecia = By.xpath("//*[@id=\"signup-button\"]");
+    By botonMembrecia = By.xpath("/html/body/section/section/nav/section/div/div/div[2]/mega-menu/ul[2]/div/li[3]");
+
+    By botonComprarMembrecia = By.xpath("//*[@id=\"lnkJoinNowDiamondTop\"]");
+
 
     public Principal(WebDriver driver) {
         this.driver = driver;
@@ -81,7 +82,6 @@ public class Principal {
     }
 
     public void clickBotonComprarMembrecia() {
-        driver.findElement(botonMembrecia);
         driver.findElement(botonComprarMembrecia).click();
     }
 

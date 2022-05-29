@@ -23,7 +23,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class TestBusqueda {
+public class TestPruebas {
     String driverPath = "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe";
 
     WebDriver driver;

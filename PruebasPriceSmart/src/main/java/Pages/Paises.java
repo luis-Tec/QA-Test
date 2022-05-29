@@ -44,9 +44,9 @@ public class Paises {
     //Boton Idiomas
     By botonIdiomas = By.xpath("//*[@id=\"dropdownMenu1\"]");
     //Boton Ingles
-    By botonIdiomaEN = By.xpath("/html/body/section/section/section[1]/div/div[1]/div/li/div/ul/li[1]");
+    By botonIdiomaEN = By.xpath("/html/body/section/section/section[1]/div/div[1]/div/li/div/ul/li[1]/a");
     //Boton Español
-    By botonIdiomaES = By.xpath("/html/body/section/section/section[1]/div/div[1]/div/li/div/ul/li[2]");
+    By botonIdiomaES = By.xpath("/html/body/section/section/section[1]/div/div[1]/div/li/div/ul/li[2]/a");
 
     public Paises(WebDriver driver) {
         this.driver = driver;
@@ -83,11 +83,10 @@ public class Paises {
     }
 
     public void clickBotonIdioma(String idioma) {
+        driver.findElement(botonIdiomas).click();
         if (idioma.equals("es")) {
-            driver.findElement(botonIdiomas).click();
             driver.findElement(botonIdiomaES).click();
         } else if (idioma.equals("en")) {
-            driver.findElement(botonIdiomas).click();
             driver.findElement(botonIdiomaEN).click();
         }
     }
