@@ -20,8 +20,7 @@ public class Principal {
     By dialogMensajeClub = By.xpath("//*[@id=\"selectClubAlert\"]");
     By botonDialogMensajeClub = By.xpath("/html/body/form/div/div/div/div/div[1]/div/div[2]/div/div/a[1]");
 
-    //Boton categorias
-    By botonCategorias = By.xpath("//*[@id=\"categories-dropdown\"]/div/div");
+
 
     //Texto del campus
     By textCampus = By.xpath("//*[@id=\"club-location-picker-cont\"]");
@@ -29,9 +28,15 @@ public class Principal {
     //Extraer elementos hijos
     By elements = By.xpath("./child::*");
 
+    //Boton categorias
+    By botonCategorias = By.xpath("//*[@id=\"categories-dropdown\"]/div/div");
+
     //boton moda y accesorios
     By botonModa = By.xpath("//*[@id=\"Modayaccesorios\"]");
 
+    By botonMembrecia = By.xpath("//*[@id=\"dropdownMenuButton\"]");
+
+    By botonComprarMembrecia = By.xpath("//*[@id=\"signup-button\"]");
 
     public Principal(WebDriver driver) {
         this.driver = driver;
@@ -68,6 +73,16 @@ public class Principal {
     public void clickBotonModa() {
         driver.findElement(botonCategorias);
         driver.findElement(botonModa).click();
+    }
+
+    public void clickBotonMembrecia() {
+
+        driver.findElement(botonMembrecia).click();
+    }
+
+    public void clickBotonComprarMembrecia() {
+        driver.findElement(botonMembrecia);
+        driver.findElement(botonComprarMembrecia).click();
     }
 
     public void setProducto(String strProducto) {

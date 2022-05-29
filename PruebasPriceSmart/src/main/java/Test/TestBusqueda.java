@@ -8,6 +8,9 @@ import Pages.ResultadoBusqueda;
 import Pages.Moda;
 import Pages.Articulos;
 import Pages.Carrito;
+import Pages.Membrecia;
+import Pages.MembreciaFormulario;
+import Pages.MembreciaResultado;
 
 import Pages.ResultadoBusqueda;
 import org.openqa.selenium.WebDriver;
@@ -37,6 +40,12 @@ public class TestBusqueda {
 
     Carrito objCarrito;
 
+    Membrecia objMembrecia;
+
+    MembreciaFormulario objMembreciaFormulario;
+
+    MembreciaResultado objMembreciaResultado;
+
     @BeforeTest
 
     public void setup() {
@@ -49,7 +58,72 @@ public class TestBusqueda {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    @Test(dataProvider = "dpBuscador")
+    @Test(dataProvider = "dpMembrecia")
+    public void test_Comprar_Membrecia(String pais, String campus, String idioma, String producto) throws InterruptedException {
+        //Cargar la pagina de seleccion de paises
+        driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
+
+        //Crear objetos
+        objPaises = new Paises(driver);
+        objPrincipal = new Principal(driver);
+        objMembrecia = new Membrecia(driver);
+        objMembreciaFormulario = new MembreciaFormulario(driver);
+        objMembreciaResultado = new MembreciaResultado(driver);
+
+        //Seleccionar idioma
+        objPaises.clickBotonIdioma(idioma);
+
+        //Click al pais correspondiente
+        objPaises.clickBotonPais(pais);
+        Thread.sleep(1000);
+
+        // click en club
+        objPrincipal.clickBotonClub();
+        Thread.sleep(3000);
+
+        //click en un club
+        objPrincipal.clickBotonClubes(campus);
+
+        //Buscar click en membresia
+        objPrincipal.clickBotonMembrecia();
+
+        // click en comprar nueva membresia
+        objPrincipal.clickBotonComprarMembrecia();
+
+        //pagina de membresia dar click en boton unete aquí
+        objMembrecia.clickBotonUneteAqui();
+
+        //pagina de formulario, llenarlo y dar click
+        objMembreciaFormulario.setNombre("Pedro");
+        objMembreciaFormulario.setApellido("Alvarado");
+        objMembreciaFormulario.setCorreo("pedro@hotmail.com");
+        objMembreciaFormulario.setCorreoConfirmar("pedro@hotmail.com");
+        objMembreciaFormulario.setContraseña("pedro1234567");
+        objMembreciaFormulario.setConttraseñaConfirmar("pedro1234567");
+        objMembreciaFormulario.setIdentificacion("123456789");
+        objMembreciaFormulario.setTelefono("12345678");
+
+        //ingresar el correo de la factura electronica solo para Guatemala Costa Rica
+        if(pais == "Costa Rica" || pais == "Guatemala"){
+            objMembreciaFormulario.setCorreoFE("pedro@hotmail.com");
+        }
+
+        //click en terminos y condiciones
+        objMembreciaFormulario.clickBotonTerminosCondiciones();
+
+        //click confirmar pagar
+        objMembreciaFormulario.clickBotonContinuarPagar();
+
+
+        objResultadoBusqueda = new ResultadoBusqueda(driver);
+
+
+        Assert.assertTrue(objMembreciaResultado.getMembreciaResultado().contains("CVV"));
+
+
+    }
+
+   /* @Test(dataProvider = "dpBuscador")
     public void test_Buscar_Producto(String pais, String campus, String idioma, String producto) throws InterruptedException {
         //Cargar la pagina de seleccion de paises
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
@@ -57,6 +131,7 @@ public class TestBusqueda {
         //Crear objetos
         objPaises = new Paises(driver);
         objPrincipal = new Principal(driver);
+        objResultadoBusqueda = new ResultadoBusqueda(driver);
 
         //Seleccionar idioma
         objPaises.clickBotonIdioma(idioma);
@@ -77,13 +152,8 @@ public class TestBusqueda {
 
         objResultadoBusqueda = new ResultadoBusqueda(driver);
 
-        if (idioma.equals("es")) {
-            Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Resultados para:"));
-        } else if (idioma.equals("en")) {
-            Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Results for:"));
-        }
-    }
-
+         Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains(producto));
+    }*/
 
 /*
     @Test(dataProvider = "dpCarrito")
@@ -154,6 +224,9 @@ public class TestBusqueda {
         }
         return null;
     }*/
+
+
+
 
 
     @DataProvider(name = "dpCarrito")
@@ -267,5 +340,23 @@ public class TestBusqueda {
                         {"Colombia", "Chía", "es", "escoba"},
                         {"Colombia", "Bogotá Usaquén", "es", "maletas"}
                 };
+    }
+
+    @DataProvider(name = "dpMembrecia")
+    public static Object[][] dataProviderMembrecia() {
+        return new Object[][]
+                {
+                        {"Costa Rica", "Escazú", "en", "beans"},
+                        {"El Salvador", "Santa Elena", "en", "atun"},
+                        {"El Salvador", "Los Héroes", "es", "tomate"},
+                        {"Costa Rica", "Zapote", "es", "frijol"},
+                        {"Costa Rica", "Heredia", "es", "banano"},
+                        {"Costa Rica", "Llorente", "es", "carne"},
+                        {"Costa Rica", "Alajuela", "es", "pollo"},
+                        {"Costa Rica", "Tres Ríos", "es", "tv"},
+                        {"Costa Rica", "Santa Ana", "es", "foco"},
+
+                };
+    }
 
 }
