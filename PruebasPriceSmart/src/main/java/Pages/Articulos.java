@@ -6,7 +6,7 @@ import org.openqa.selenium.Keys;
 public class Articulos {
     WebDriver driver;
 
-    By botonAgregarCarrito = By.name("btn-add-to-cart");
+    By botonAgregarCarrito = By.xpath("//*[@id=\"btn-add-to-cart\"]");
 
     public Articulos(WebDriver driver){
 

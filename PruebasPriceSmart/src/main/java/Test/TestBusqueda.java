@@ -14,8 +14,11 @@ import Pages.ResultadoBusqueda;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 public class TestBusqueda {
     String driverPath = "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe";
@@ -41,40 +44,27 @@ public class TestBusqueda {
     public void setup(){
 
         System.setProperty("webdriver.gecko.driver", driverPath);
-
         driver = new FirefoxDriver();
-
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
-
     }
-    /*@Test(priority=0)
-
-    public void test_Home_Page_Appear_Correct() {
-
-        //Create Login Page object
-
+    /*
+    @Test(dataProvider = "dp")
+    public void test_Home_Page_Appear_Correct(String pais, String url) {
         objBusqueda = new Busqueda(driver);
-
-        //login to application
-
+        driver.get(url);
         objBusqueda.buscarProducto("frijol");
-
-        // go the next page
-
         objResultadoBusqueda = new ResultadoBusqueda(driver);
-
-        //Verify home page
-
         Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Resultados para:"));
-    }*/
+    }
 
-    @Test(priority=1)
+     */
 
-    public void test_Agregar_Carrito() {
+    @Test(dataProvider = "dp")
+    public void test_Agregar_Carrito(String pais, String campus) throws InterruptedException {
+        driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
 
         //Crear objetos
         objPaises = new Paises(driver);
@@ -85,12 +75,12 @@ public class TestBusqueda {
 
         //darle enter en el boton de pais correspndiente
         objPaises.clickBotonCostaRica();
-
+        Thread.sleep(10000);
         // click en club
         objPrincipal.clickBotonClub();
 
         //click en un club
-        objPrincipal.clickBotonClubes();
+        objPrincipal.clickBotonClubes(campus);
 
         //click en categorias
         objPrincipal.clickBotonCategorias();
@@ -107,4 +97,45 @@ public class TestBusqueda {
         //Verificar que se agrego al carrito
         Assert.assertTrue(objCarrito.getArticulosCarrito().contains("PriceSmart | Carrito de compras"));
     }
+
+    /*
+    @DataProvider(name="dp")
+    public static Object[][] readJson() throws Exception {
+        JSONParser jsonParser = new JSONParser();
+        FileReader fileReader = new FileReader("C:\\Users\\Luis\\Documents\\GitHub\\QA-Test\\PruebasPriceSmart\\src\\main\\java\\json\\DataProvider.json");
+        Object obj = jsonParser.parse(fileReader);
+
+        Object[][] jsonObj = null;
+
+        JSONArray lista = (JSONArray) obj;
+        for(int i=0;i<lista.size();i++)
+        {
+            JSONObject datos = (JSONObject) lista.get(0);
+            JSONObject pais = (JSONObject) datos.get("pais");
+            String  nombre = (String) pais.get("nombre");
+            String  url = (String) pais.get("url");
+            JSONArray campuslist =  (JSONArray) pais.get("campus");
+            System.out.println(nombre);
+            System.out.println(url);
+            System.out.println(campuslist);
+        }
+        return null;
+    }*/
+
+
+    @DataProvider(name = "dp")
+    public static Object[][] dataProviderMethod() {
+        return new Object[][]
+                {
+                        {"Costa Rica", "Zapote"},
+                        {"Costa Rica", "Escazú"},
+                        {"Costa Rica", "Heredia"},
+                        {"Costa Rica", "Llorente"},
+                        {"Costa Rica", "Alajuela"},
+                        {"Costa Rica", "Tres Ríos"},
+                        {"Costa Rica", "Santa Ana"},
+                        {"Costa Rica", "Liberia"}
+                };
+    }
+
 }
