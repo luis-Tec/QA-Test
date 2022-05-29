@@ -63,7 +63,7 @@ public class TestBusqueda {
 
      */
 
-    @Test(dataProvider = "dp")
+    @Test(dataProvider = "dpCarrito")
     public void test_Agregar_Carrito(String pais, String campus, String idioma) throws InterruptedException {
         //Cargar la pagina de seleccion de paises
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
@@ -129,18 +129,34 @@ public class TestBusqueda {
     }*/
 
 
-    @DataProvider(name = "dpBusqueda")
-    public static Object[][] dataProviderMethod() {
+    @DataProvider(name = "dpCarrito")
+    public static Object[][] dataProviderCarrito() {
         return new Object[][]
                 {
-                        //{"Costa Rica", "Zapote", "es","frijoles"},
+                        //{"Costa Rica", "Zapote", "es",
                         //{"Costa Rica", "Escazú", "es"},
                         //{"Costa Rica", "Heredia", "es"},
                         //{"Costa Rica", "Llorente", "es"},
                         //{"Costa Rica", "Alajuela", "es"},
                         //{"Costa Rica", "Tres Ríos", "es"},
                         //{"Costa Rica", "Santa Ana", "es"},
-                        {"El Salvador", "Santa Elena", "es"},
+                        {"El Salvador", "Santa Elena", "en"},
+                        {"El Salvador", "Los Héroes", "es"},
+                };
+    }
+
+    @DataProvider(name = "dpBuscador")
+    public static Object[][] dataProviderBuscador() {
+        return new Object[][]
+                {
+                        //{"Costa Rica", "Zapote", "es",
+                        //{"Costa Rica", "Escazú", "es"},
+                        //{"Costa Rica", "Heredia", "es"},
+                        //{"Costa Rica", "Llorente", "es"},
+                        //{"Costa Rica", "Alajuela", "es"},
+                        //{"Costa Rica", "Tres Ríos", "es"},
+                        //{"Costa Rica", "Santa Ana", "es"},
+                        {"El Salvador", "Santa Elena", "en"},
                         {"El Salvador", "Los Héroes", "es"},
                 };
     }
