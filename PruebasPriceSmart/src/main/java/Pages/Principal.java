@@ -45,7 +45,7 @@ public class Principal {
             String x = i.findElement(By.id("club-description")).getText();
             System.out.println(x+" "+campus);
             if(campus.equals(x)){
-                i.findElement(By.xpath("//*[@id=\"select-club\"]")).click();
+                i.findElement(By.id("select-club")).click();
                 break;
             }
         }
