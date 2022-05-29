@@ -20,6 +20,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 public class TestBusqueda {
     String driverPath = "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe";
 
@@ -41,7 +42,7 @@ public class TestBusqueda {
 
     @BeforeTest
 
-    public void setup(){
+    public void setup() {
 
         System.setProperty("webdriver.gecko.driver", driverPath);
         driver = new FirefoxDriver();
@@ -63,7 +64,8 @@ public class TestBusqueda {
      */
 
     @Test(dataProvider = "dp")
-    public void test_Agregar_Carrito(String pais, String campus) throws InterruptedException {
+    public void test_Agregar_Carrito(String pais, String campus, String idioma) throws InterruptedException {
+        //Cargar la pagina de seleccion de paises
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
 
         //Crear objetos
@@ -73,9 +75,13 @@ public class TestBusqueda {
         objArticulos = new Articulos(driver);
         objCarrito = new Carrito(driver);
 
-        //darle enter en el boton de pais correspndiente
-        objPaises.clickBotonCostaRica();
+        //Seleccionar idioma
+        objPaises.clickBotonIdioma(idioma);
+
+        //Click al pais correspondiente
+        objPaises.clickBotonPais(pais);
         Thread.sleep(10000);
+
         // click en club
         objPrincipal.clickBotonClub();
 
@@ -123,18 +129,19 @@ public class TestBusqueda {
     }*/
 
 
-    @DataProvider(name = "dp")
+    @DataProvider(name = "dpBusqueda")
     public static Object[][] dataProviderMethod() {
         return new Object[][]
                 {
-                        {"Costa Rica", "Zapote"},
-                        {"Costa Rica", "Escazú"},
-                        {"Costa Rica", "Heredia"},
-                        {"Costa Rica", "Llorente"},
-                        {"Costa Rica", "Alajuela"},
-                        {"Costa Rica", "Tres Ríos"},
-                        {"Costa Rica", "Santa Ana"},
-                        {"Costa Rica", "Liberia"}
+                        //{"Costa Rica", "Zapote", "es","frijoles"},
+                        //{"Costa Rica", "Escazú", "es"},
+                        //{"Costa Rica", "Heredia", "es"},
+                        //{"Costa Rica", "Llorente", "es"},
+                        //{"Costa Rica", "Alajuela", "es"},
+                        //{"Costa Rica", "Tres Ríos", "es"},
+                        //{"Costa Rica", "Santa Ana", "es"},
+                        {"El Salvador", "Santa Elena", "es"},
+                        {"El Salvador", "Los Héroes", "es"},
                 };
     }
 
