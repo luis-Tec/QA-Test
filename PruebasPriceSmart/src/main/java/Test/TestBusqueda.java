@@ -19,7 +19,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class TestPruebas {
+public class TestBusqueda {
     String driverPath = "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe";
 
     WebDriver driver;
@@ -54,28 +54,28 @@ public class TestPruebas {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    @Test(dataProvider = "dpMembrecia")
-    public void test_Buy_Membership(String country, String campus, String lenguaje, String producto) throws InterruptedException {
+    @Test(dataProvider = "dpCarrito")
+    public void test_Comprar_Membrecia(String pais, String campus, String idioma) throws InterruptedException {
         //Cargar la pagina de seleccion de paises
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
 
         //Crear objetos
         objCountrysPage = new CountrysPage(driver);
         objHomePage = new HomePage(driver);
-        objMembershipPage = new MembershipPage(driver);
-        objMembershipFormPage = new MembershipFormPage(driver);
-        objResultMembershipPage = new ResultMembershipPage(driver);
+
+
+
 
         //Seleccionar idioma
-        objCountrysPage.clickButtonLenguaje(lenguaje);
+        objCountrysPage.clickButtonLenguaje(idioma);
 
         //Click al pais correspondiente
-        objCountrysPage.clickButtonCountry(country);
-        Thread.sleep(1000);
+        objCountrysPage.clickButtonCountry(pais);
+        //Thread.sleep(500);
 
         // click en club
         objHomePage.cilickClubButton();
-        Thread.sleep(3000);
+        //Thread.sleep(1000);
 
         //click en un club
         objHomePage.clickClubsButtton(campus);
@@ -87,8 +87,11 @@ public class TestPruebas {
         objHomePage.clickBuyMembershipButton();
 
         //pagina de membresia dar click en boton unete aquí
+        objMembershipPage = new MembershipPage(driver);
         objMembershipPage.clickJoinHereButton();
+        System.out.println(  "lklefsdfsdfdfsf " );
 
+        objMembershipFormPage = new MembershipFormPage(driver);
         //pagina de formulario, llenarlo y dar click
         objMembershipFormPage.setNameTextField("Pedro");
         objMembershipFormPage.setLastNameTextField("Alvarado");
@@ -98,71 +101,102 @@ public class TestPruebas {
         objMembershipFormPage.setPasswordConfirmTextField("pedro1234567");
         objMembershipFormPage.setIdentificationTextField("123456789");
         objMembershipFormPage.setPhoneTextField("12345678");
-        //ingresar el correo de la factura electronica solo para Guatemala Costa Rica
-        if(country == "Costa Rica" || country == "Guatemala"){
+
+        //ingresar el correo de la factura electronica solo para Guatemala y Costa Rica
+        if(pais == "Costa Rica" || pais == "Guatemala"){
             objMembershipFormPage.setEmailFETextField("pedro@hotmail.com");
         }
+
         //click en terminos y condiciones
         objMembershipFormPage.clickTermsConditionsButton();
+
         //click confirmar pagar
         objMembershipFormPage.clickContinuePayButton();
+
+
+        objResultMembershipPage = new ResultMembershipPage(driver);
         Assert.assertTrue(objResultMembershipPage.getResultMembership().contains("CVV"));
+
+
     }
 
-    @Test(dataProvider = "dpBuscador")
-    public void test_Buscar_Producto(String country, String campus, String lenguaje, String producto) throws InterruptedException {
+   @Test(dataProvider = "dpBuscador")
+    public void test_Buscar_Producto(String pais, String campus, String idioma, String producto) throws InterruptedException {
         //Cargar la pagina de seleccion de paises
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
+
         //Crear objetos
         objCountrysPage = new CountrysPage(driver);
         objHomePage = new HomePage(driver);
-        objResultadoBusqueda = new ResultadoBusqueda(driver);
+
         //Seleccionar idioma
-        objCountrysPage.clickButtonLenguaje(lenguaje);
+        objCountrysPage.clickButtonLenguaje(idioma);
+
         //Click al pais correspondiente
-        objCountrysPage.clickButtonCountry(country);
+        objCountrysPage.clickButtonCountry(pais);
         Thread.sleep(5000);
+
         // click en club
         objHomePage.cilickClubButton();
         Thread.sleep(3000);
+
         //click en un club
         objHomePage.clickClubsButtton(campus);
+
         //Buscar producto
         objHomePage.searchProduct(producto);
+
         objResultadoBusqueda = new ResultadoBusqueda(driver);
-         Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains(producto));
+
+        if (idioma.equals("es")) {
+            Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Resultados para:"));
+        } else if (idioma.equals("en")) {
+            Assert.assertTrue(objResultadoBusqueda.getProductoBusquueda().contains("Results for:"));
+        }
     }
+
+
     @Test(dataProvider = "dpCarrito")
     public void test_Agregar_Carrito(String pais, String campus, String idioma) throws InterruptedException {
         //Cargar la pagina de seleccion de paises
         //objBusqueda = new Busqueda(driver);
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
+
         //Crear objetos
         objCountrysPage = new CountrysPage(driver);
         objHomePage = new HomePage(driver);
         objFashionPage = new FashionPage(driver);
         objArticlesPage = new ArticlesPage(driver);
         objShoppingCartPage = new ShoppingCartPage(driver);
+
         //Seleccionar idioma
         objCountrysPage.clickButtonLenguaje(idioma);
+
         //Click al pais correspondiente
         objCountrysPage.clickButtonCountry(pais);
         Thread.sleep(5000);
+
         // click en club
         objHomePage.cilickClubButton();
         Thread.sleep(3000);
+
         //click en un club
         objHomePage.clickClubsButtton(campus);
+
         //click en categorias
         objHomePage.clickCategoriesButton();
         Thread.sleep(3000);
+
         //click en moda y accesorios
         objHomePage.clickFashionButtom();
+
         Thread.sleep(5000);
         //click en el primer articulo
         objFashionPage.clickFirstObjectButton();
+
         // click en agregar al Carrito
         objArticlesPage.clickShoppingCartButton();
+
         //Verificar que se agrego al carrito
         Assert.assertTrue(objShoppingCartPage.getArticleShoppingCart().contains("PriceSmart | Carrito de compras"));
     }
@@ -190,6 +224,10 @@ public class TestPruebas {
         }
         return null;
     }*/
+
+
+
+
 
     @DataProvider(name = "dpCarrito")
     public static Object[][] dataProviderCarrito() {
@@ -303,6 +341,7 @@ public class TestPruebas {
                         {"Colombia", "Bogotá Usaquén", "es", "maletas"}
                 };
     }
+
     @DataProvider(name = "dpMembrecia")
     public static Object[][] dataProviderMembrecia() {
         return new Object[][]
