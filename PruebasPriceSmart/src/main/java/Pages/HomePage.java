@@ -3,9 +3,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 public class HomePage {
     WebDriver driver;
+
     //Buscador
     By searchTextField = By.name("_sq");
     //boton  clubes
@@ -27,12 +30,18 @@ public class HomePage {
         this.driver = driver;
     }
     public void cilickClubButton() {
+        WebDriverWait waiter = new WebDriverWait(driver, 5000);
+        waiter.until( ExpectedConditions.presenceOfElementLocated(clubButton) );
         driver.findElement(clubButton).click();
         if (driver.findElements(mensajeClubDialog).size() != 0) {
+            waiter.until( ExpectedConditions.presenceOfElementLocated(mensajeClubDialogButton) );
             driver.findElement(mensajeClubDialogButton).click();
         }
     }
     public void clickClubsButtton(String campus) {
+        WebDriverWait waiter = new WebDriverWait(driver, 5000);
+        waiter.until( ExpectedConditions.presenceOfElementLocated(textCampus) );
+        waiter.until( ExpectedConditions.presenceOfElementLocated(elements) );
         List<WebElement> childrenTextCampus = driver.findElement(textCampus).findElements(elements);
         for (WebElement i : childrenTextCampus) {
             String x = i.findElement(By.id("club-description")).getText();
@@ -48,10 +57,15 @@ public class HomePage {
         }
     }
     public void clickCategoriesButton() {
+        WebDriverWait waiter = new WebDriverWait(driver, 5000);
+        waiter.until( ExpectedConditions.presenceOfElementLocated(categoriesButton) );
         driver.findElement(categoriesButton).click();
     }
     public void clickFashionButtom() {
+        WebDriverWait waiter = new WebDriverWait(driver, 5000);
+        waiter.until( ExpectedConditions.presenceOfElementLocated(categoriesButton) );
         driver.findElement(categoriesButton);
+        waiter.until( ExpectedConditions.presenceOfElementLocated(fashionButton) );
         driver.findElement(fashionButton).click();
     }
     public void clickMembershipButton() {

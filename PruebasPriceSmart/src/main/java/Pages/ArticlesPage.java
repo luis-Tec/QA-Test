@@ -7,7 +7,6 @@ public class ArticlesPage {
     public ArticlesPage(WebDriver driver){
         this.driver = driver;
     }
-
     public void clickShoppingCartButton(){
         driver.findElement(addShoppingCartButton).click();
     }
