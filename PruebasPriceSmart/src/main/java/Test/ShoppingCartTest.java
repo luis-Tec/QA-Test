@@ -18,7 +18,7 @@ public class ShoppingCartTest extends FatherTest{
         super();
     }
     @Test(priority = 1,dataProvider = "dpCarrito")
-    public void test_Agregar_Carrito(String pais, String campus, String idioma) throws InterruptedException {
+    public void test_Agregar_Carrito(String pais, String campus, String idioma) {
         //Cargar la pagina de seleccion de paises
         //objBusqueda = new Busqueda(driver);
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
@@ -32,7 +32,6 @@ public class ShoppingCartTest extends FatherTest{
         objCountrysPage.clickButtonLenguaje(idioma);
         //Click al pais correspondiente
         objCountrysPage.clickButtonCountry(pais);
-        Thread.sleep(5000);
         // click en club
         objHomePage.cilickClubButton();
         //click en un club

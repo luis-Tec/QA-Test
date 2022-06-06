@@ -10,7 +10,7 @@ public class HomePage {
     WebDriver driver;
 
     //Buscador
-    By searchTextField = By.name("_sq");
+    By searchTextField = By.xpath("//*[@id=\"_sq\"]");
     //boton  clubes
     By clubButton = By.xpath("//*[@id=\"clubLocationHeader\"]");
     By closeMenuClubButton = By.xpath("/html/body/form/div/div/div/div/div/div/div[1]/button");
@@ -74,9 +74,14 @@ public class HomePage {
         driver.findElement(buyMembershipButton).click();
     }
     public void setProduct(String strProduct) {
+        WebDriverWait waiter = new WebDriverWait(driver, 5000);
+        waiter.until( ExpectedConditions.presenceOfElementLocated(searchTextField) );
         driver.findElement(searchTextField).sendKeys(strProduct);
     }
     public void enterSearchTextField() {
+
+        WebDriverWait waiter = new WebDriverWait(driver, 5000);
+        waiter.until( ExpectedConditions.presenceOfElementLocated(searchTextField) );
         driver.findElement(searchTextField).sendKeys(Keys.RETURN);
     }
     public void searchProduct(String strProduct) {

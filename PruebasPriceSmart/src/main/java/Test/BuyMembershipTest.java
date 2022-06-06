@@ -5,9 +5,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class BuyMembershipTest extends FatherTest{
-    CountrysPage objCountrysPage;
-    HomePage objHomePage;
-    MembershipPage objMembershipPage;
+    //CountrysPage objCountrysPage;
+    //HomePage objHomePage;
+    //MembershipPage objMembershipPage;
     MembershipFormPage objMembershipFormPage;
     ResultMembershipPage objResultMembershipPage;
     @Test(dataProvider = "dpMembership")

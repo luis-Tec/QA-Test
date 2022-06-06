@@ -13,10 +13,10 @@ public class CountrysPage {
     By buttonGT = By.xpath("/html/body/section/section/section[1]/div/div[5]/div/div/div[1]/div/ul/li[3]");
     //Boton Honduras
     By buttonHN = By.xpath("/html/body/section/section/section[1]/div/div[5]/div/div/div[1]/div/ul/li[4]");
-    //Boton Nicaragua
-    By buttonNC = By.xpath("/html/body/section/section/section[1]/div/div[5]/div/div/div[1]/div/ul/li[5]");
     //Boton Panama
-    By buttonPN = By.xpath("/html/body/section/section/section[1]/div/div[5]/div/div/div[1]/div/ul/li[6]");
+    By buttonPN = By.xpath("/html/body/section/section/section[1]/div/div[5]/div/div/div[1]/div/ul/li[5]");
+    //Boton Nicaragua
+    By buttonNC = By.xpath("/html/body/section/section/section[1]/div/div[5]/div/div/div[1]/div/ul/li[6]");
     //Caribe
     //Boton Aruba
     By buttonAR = By.xpath("/html/body/section/section/section[1]/div/div[5]/div/div/div[3]/div/ul/li[1]");

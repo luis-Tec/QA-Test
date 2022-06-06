@@ -7,17 +7,17 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class SearchTest extends FatherTest{
-    SearchResultPage objResultadoBusqueda;
+    SearchResultPage objSearchResultPage;
     CountrysPage objCountrysPage;
     HomePage objHomePage;
-    @Test(dataProvider = "dpBuscador")
+    @Test(dataProvider = "dpSerch")
     public void test_SearchProduct(String country, String campus, String lenguaje, String producto){
         //Cargar la pagina de seleccion de paises
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
         //Crear objetos
         objCountrysPage = new CountrysPage(driver);
         objHomePage = new HomePage(driver);
-        objResultadoBusqueda = new SearchResultPage(driver);
+        objSearchResultPage = new SearchResultPage(driver);
         //Seleccionar idioma
         objCountrysPage.clickButtonLenguaje(lenguaje);
         //Click al pais correspondiente
@@ -28,10 +28,10 @@ public class SearchTest extends FatherTest{
         objHomePage.clickClubsButtton(campus);
         //Buscar producto
         objHomePage.searchProduct(producto);
-        Assert.assertTrue(objResultadoBusqueda.getSearchProduct().contains(producto));
+        Assert.assertTrue(objSearchResultPage.getSearchProduct().contains(producto));
     }
-    @DataProvider(name = "dpBuscador")
-    public static Object[][] dataProviderBuscador() {
+    @DataProvider(name = "dpSerch")
+    public static Object[][] dataProviderSerch() {
         return new Object[][]
                 {
                         {"Costa Rica", "Zapote", "es", "frijol"},
