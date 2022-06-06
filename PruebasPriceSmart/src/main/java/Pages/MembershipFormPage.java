@@ -5,9 +5,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 public class MembershipFormPage {
     WebDriver driver;
-    By continuePayButton = By.xpath("//*[@id=\"sendInfoNotAero\"]");
-    By nameTextField = By.xpath("//*[@id=\"firstName\"]");
-    By lastNameTextField = By.xpath("//*[@id=\"lastName\"]");
+    By nameTextField = By.name("firstName");
+    By lastNameTextField = By.name("lastName");
     By emailTextField = By.xpath("//*[@id=\"email\"]");
     By emailConfirmTextField = By.xpath("//*[@id=\"emailConfirm\"]");
     By passwordTextField = By.xpath("//*[@id=\"txtpassword\"]");
@@ -16,8 +15,8 @@ public class MembershipFormPage {
     By phoneTextField = By.xpath("//*[@id=\"phone\"]");
     By emailFeTextField = By.xpath("//*[@id=\"emailElectronicInvoice\"]");
     By termsConditionsButton = By.xpath("//*[@id=\"terms-label\"]");
+    By continuePayButton = By.xpath("//*[@id=\"sendInfoNotAero\"]");
     public MembershipFormPage(WebDriver driver){
-
         this.driver = driver;
     }
     public void clickContinuePayButton(){
@@ -26,33 +25,31 @@ public class MembershipFormPage {
     public void clickTermsConditionsButton(){
         driver.findElement(termsConditionsButton).click();
     }
-    public void setNameTextField(String strProducto){
-        WebDriverWait waiter = new WebDriverWait(driver, 5000);
-        waiter.until( ExpectedConditions.presenceOfElementLocated(nameTextField) );
-        driver.findElement(nameTextField).sendKeys(strProducto);
+    public void setNameTextField(String strName){
+        driver.findElement(nameTextField).sendKeys(strName);
     }
-    public void setLastNameTextField(String strProducto){
-        driver.findElement(lastNameTextField).sendKeys(strProducto);
+    public void setLastNameTextField(String strLastName){
+        driver.findElement(lastNameTextField).sendKeys(strLastName);
     }
-    public void setEmailTextField(String strProducto){
-        driver.findElement(emailTextField).sendKeys(strProducto);
+    public void setEmailTextField(String strEmail){
+        driver.findElement(emailTextField).sendKeys(strEmail);
     }
-    public void setEmailConfirmTextField(String strProducto){
-        driver.findElement(emailConfirmTextField).sendKeys(strProducto);
+    public void setEmailConfirmTextField(String strEmailConfirm){
+        driver.findElement(emailConfirmTextField).sendKeys(strEmailConfirm);
     }
-    public void setPasswordTextField(String strProducto){
-        driver.findElement(passwordTextField).sendKeys(strProducto);
+    public void setPasswordTextField(String strPassword){
+        driver.findElement(passwordTextField).sendKeys(strPassword);
     }
-    public void setPasswordConfirmTextField(String strProducto){
-        driver.findElement(passwordConfirmTextField).sendKeys(strProducto);
+    public void setPasswordConfirmTextField(String strPasswordConfirm){
+        driver.findElement(passwordConfirmTextField).sendKeys(strPasswordConfirm);
     }
-    public void setIdentificationTextField(String strProducto){
-        driver.findElement(identificationTextField).sendKeys(strProducto);
+    public void setIdentificationTextField(String strID){
+        driver.findElement(identificationTextField).sendKeys(strID);
     }
-    public void setPhoneTextField(String strProducto){
-        driver.findElement(phoneTextField).sendKeys(strProducto);
+    public void setPhoneTextField(String strPhone){
+        driver.findElement(phoneTextField).sendKeys(strPhone);
     }
-    public void setEmailFETextField(String strProducto){
-        driver.findElement(emailFeTextField).sendKeys(strProducto);
+    public void setEmailFETextField(String strEmailFE){
+        driver.findElement(emailFeTextField).sendKeys(strEmailFE);
     }
 }

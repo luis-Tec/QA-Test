@@ -45,7 +45,6 @@ public class HomePage {
         List<WebElement> childrenTextCampus = driver.findElement(textCampus).findElements(elements);
         for (WebElement i : childrenTextCampus) {
             String x = i.findElement(By.id("club-description")).getText();
-            System.out.println(x + " " + campus);
             if (campus.equals(x)) {
                 if (i.findElements(By.id("club-select")).size() != 0) {
                     driver.findElement(closeMenuClubButton).click();

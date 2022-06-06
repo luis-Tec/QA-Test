@@ -11,48 +11,25 @@ public class BuyMembershipTest extends FatherTest{
     MembershipFormPage objMembershipFormPage;
     ResultMembershipPage objResultMembershipPage;
     @Test(dataProvider = "dpMembership")
-    public void test_Buy_Membership(String country, String campus, String lenguaje) throws InterruptedException {
+    public void test_Buy_Membership(String country, String name, String lastName, String email,String emailConfirm,String password, String passwordConfirm, String ID, String phone, String emailFE, String url) throws InterruptedException {
         //Cargar la pagina de seleccion de paises
-        driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
+        driver.get(url);
 
         //Crear objetos
-        objCountrysPage = new CountrysPage(driver);
-        objHomePage = new HomePage(driver);
-        objMembershipPage = new MembershipPage(driver);
         objMembershipFormPage = new MembershipFormPage(driver);
         objResultMembershipPage = new ResultMembershipPage(driver);
 
-        //Seleccionar idioma
-        objCountrysPage.clickButtonLenguaje(lenguaje);
-
-        //Click al pais correspondiente
-        objCountrysPage.clickButtonCountry(country);
-        Thread.sleep(1000);
-
-        // click en club
-        objHomePage.cilickClubButton();
-        Thread.sleep(3000);
-
-        //click en un club
-        objHomePage.clickClubsButtton(campus);
-        //Buscar click en membresia
-        objHomePage.clickMembershipButton();
-        // click en comprar nueva membresia
-        objHomePage.clickBuyMembershipButton();
-        //pagina de membresia dar click en boton unete aquí
-        objMembershipPage.clickJoinHereButton();
         //pagina de formulario, llenarlo y dar click
-        objMembershipFormPage.setNameTextField("Pedro");
-        objMembershipFormPage.setLastNameTextField("Alvarado");
-        objMembershipFormPage.setEmailTextField("pedro@hotmail.com");
-        objMembershipFormPage.setEmailConfirmTextField("pedro@hotmail.com");
-        objMembershipFormPage.setPasswordTextField("pedro1234567");
-        objMembershipFormPage.setPasswordConfirmTextField("pedro1234567");
-        objMembershipFormPage.setIdentificationTextField("123456789");
-        objMembershipFormPage.setPhoneTextField("12345678");
-        //ingresar el correo de la factura electronica solo para Guatemala Costa Rica
+        objMembershipFormPage.setNameTextField(name);
+        objMembershipFormPage.setLastNameTextField(lastName);
+        objMembershipFormPage.setEmailTextField(email);
+        objMembershipFormPage.setEmailConfirmTextField(emailConfirm);
+        objMembershipFormPage.setPasswordTextField(password);
+        objMembershipFormPage.setPasswordConfirmTextField(passwordConfirm);
+        objMembershipFormPage.setIdentificationTextField(ID);
+        objMembershipFormPage.setPhoneTextField(phone);
         if(country == "Costa Rica" || country == "Guatemala"){
-            objMembershipFormPage.setEmailFETextField("pedro@hotmail.com");
+            objMembershipFormPage.setEmailFETextField(emailFE);
         }
         //click en terminos y condiciones
         objMembershipFormPage.clickTermsConditionsButton();
@@ -61,58 +38,17 @@ public class BuyMembershipTest extends FatherTest{
         Assert.assertTrue(objResultMembershipPage.getResultMembership().contains("CVV"));
     }
     @DataProvider(name = "dpMembership")
-    public static Object[][] dataProviderCarrito() {
+    public static Object[][] dataProviderMemberShip() {
         return new Object[][]
                 {
-                        {"Costa Rica", "Zapote", "es"},
-                        {"Costa Rica", "Escazú", "es"},
-                        {"Costa Rica", "Heredia", "es"},
-                        {"Costa Rica", "Llorente", "es"},
-                        {"Costa Rica", "Alajuela", "es"},
-                        {"Costa Rica", "Tres Ríos", "es"},
-                        {"Costa Rica", "Santa Ana", "es"},
-                        {"El Salvador", "Santa Elena", "en"},
-                        {"El Salvador", "Los Héroes", "es"},
-                        {"Guatemala", "Aranda", "es"},
-                        {"Guatemala", "Miraflores", "es"},
-                        {"Guatemala", "Pradera", "es"},
-                        {"Guatemala", "Fraijanes", "es"},
-                        {"Guatemala", "San Cristóbal", "es"},
-                        {"Honduras", "Florencia", "es"},
-                        {"Honduras", "San Pedro Sula", "es"},
-                        {"Honduras", "El Sauce", "es"},
-                        {"Nicaragua", "Managua", "es"},
-                        {"Nicaragua", "Masaya", "es"},
-                        {"Panamá", "Vía Brasil", "es"},
-                        {"Panamá", "El Dorado", "es"},
-                        {"Panamá", "David", "es"},
-                        {"Panamá", "Brisas", "es"},
-                        {"Panamá", "Costa Verde", "es"},
-                        {"Panamá", "Santiago de Veraguas", "es"},
-                        {"Panamá", "Metro Park", "es"},
-                        {"Aruba", "Oranjestad", "es"},
-                        {"Barbados", "St. Michaels", "es"},
-                        {"República Dominicana", "Los Prados", "es"},
-                        {"República Dominicana", "Santiago", "es"},
-                        {"República Dominicana", "Arroyo Hondo", "es"},
-                        {"República Dominicana", "San Isidro", "es"},
-                        {"República Dominicana", "Bolívar", "es"},
-                        {"Jamaica", "Portmore", "es"},
-                        {"Jamaica", "Kingston", "es"},
-                        {"Trinidad y Tobago", "Chaguanas", "es"},
-                        {"Trinidad y Tobago", "Port of Spain", "es"},
-                        {"Trinidad y Tobago", "Mausica", "es"},
-                        {"Trinidad y Tobago", "San Fernando", "es"},
-                        {"Islas Vírgenes, US", "St. Thomas", "es"},
-                        {"Colombia", "Bucaramanga - Floridablanca", "es"},
-                        {"Colombia", "Barranquilla", "es"},
-                        {"Colombia", "Cali Cañasgordas", "es"},
-                        {"Colombia", "Cali Menga", "es"},
-                        {"Colombia", "Pereira", "es"},
-                        {"Colombia", "Bogotá Salitre", "es"},
-                        {"Colombia", "Medellín", "es"},
-                        {"Colombia", "Chía", "es"},
-                        {"Colombia", "Bogotá Usaquén", "es"}
+                        {"Costa Rica", "Pedro","Alvarado","pedro@hotmail.com","pedro@hotmail.com","pedro1234567","pedro1234567","123456789","12345678","pedro@hotmail.com","https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6401"},
+                        {"Costa Rica", "Juan","Gomez","juan@hotmail.com","juan@hotmail.com","juan1234567","juan1234567","123456789","12345678","juan@hotmail.com", "https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6402"},
+                        {"Costa Rica", "Carlos","Castillo","carlos@hotmail.com","carlos@hotmail.com","carlos1234567","carlos1234567","123456789","12345678","carlos@hotmail.com", "https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6403"},
+                        {"Costa Rica", "Luis","Lopez","luis@hotmail.com","luis@hotmail.com","luis1234567","luis1234567","123456789","12345678","luis@hotmail.com", "https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6404"},
+                        {"Costa Rica", "Andres","Figueres","andres@hotmail.com","andres@hotmail.com","andres1234567","andres1234567","123456789","12345678","andres@hotmail.com", "https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6405"},
+                        {"Costa Rica", "Jose","Ramos","jose@hotmail.com","jose@hotmail.com","jose1234567","jose1234567","123456789","12345678","jose@hotmail.com", "https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6406"},
+                        {"Costa Rica", "Rafael","Flores","rafael@hotmail.com","rafael@hotmail.com","rafael1234567","rafael1234567","123456789","12345678","rafael@hotmail.com", "https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6407"},
+                        {"Costa Rica", "Maria","Ramirez","maria@hotmail.com","maria@hotmail.com","maria1234567","maria1234567","123456789","12345678","maria@hotmail.com", "https://www.pricesmart.com/site/cr/es/registro?item_number=989998&club_code=6408"},
                 };
     }
 }

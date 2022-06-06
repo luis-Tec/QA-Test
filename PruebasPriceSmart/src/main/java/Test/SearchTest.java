@@ -11,7 +11,7 @@ public class SearchTest extends FatherTest{
     CountrysPage objCountrysPage;
     HomePage objHomePage;
     @Test(dataProvider = "dpBuscador")
-    public void test_SearchProduct(String country, String campus, String lenguaje, String producto) throws InterruptedException {
+    public void test_SearchProduct(String country, String campus, String lenguaje, String producto){
         //Cargar la pagina de seleccion de paises
         driver.get("https://www.pricesmart.com/site/es/seleccionar-pais");
         //Crear objetos
@@ -22,7 +22,6 @@ public class SearchTest extends FatherTest{
         objCountrysPage.clickButtonLenguaje(lenguaje);
         //Click al pais correspondiente
         objCountrysPage.clickButtonCountry(country);
-        Thread.sleep(5000);
         // click en club
         objHomePage.cilickClubButton();
         //click en un club
@@ -36,13 +35,13 @@ public class SearchTest extends FatherTest{
         return new Object[][]
                 {
                         {"Costa Rica", "Zapote", "es", "frijol"},
-                        {"Costa Rica", "Escazú", "en", "beans"},
+                        {"Costa Rica", "Escazú", "es", "beans"},
                         {"Costa Rica", "Heredia", "es", "banano"},
                         {"Costa Rica", "Llorente", "es", "carne"},
                         {"Costa Rica", "Alajuela", "es", "pollo"},
                         {"Costa Rica", "Tres Ríos", "es", "tv"},
                         {"Costa Rica", "Santa Ana", "es", "foco"},
-                        {"El Salvador", "Santa Elena", "en", "atun"},
+                        {"El Salvador", "Santa Elena", "es", "atun"},
                         {"El Salvador", "Los Héroes", "es", "tomate"},
                         {"Guatemala", "Aranda", "es", "aceite"},
                         {"Guatemala", "Miraflores", "es", "filete"},

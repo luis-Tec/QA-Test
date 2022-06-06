@@ -1,5 +1,5 @@
 package Test;
-
+/*
 import java.util.concurrent.TimeUnit;
 
 import Pages.CountrysPage;
@@ -190,7 +190,7 @@ public class TestPruebas {
         }
         return null;
     }*/
-
+/*
     @DataProvider(name = "dpCarrito")
     public static Object[][] dataProviderCarrito() {
         return new Object[][]
@@ -321,3 +321,4 @@ public class TestPruebas {
     }
 
 }
+*/
